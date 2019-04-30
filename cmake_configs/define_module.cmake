@@ -16,14 +16,15 @@ set(MODULE_HEADERS_LIST "")
 set(PRJ_ROOT_DIR ${PROJECT_SOURCE_DIR})
 set(SRC_ROOT_DIR ${PRJ_ROOT_DIR}/src)
 set(INCLUDE_ROOT_DIR ${PRJ_ROOT_DIR}/include)
+set(TEST_ROOT_DIR ${PRJ_ROOT_DIR}/test)
 
 
 function(add_mod_sources)
-    set(MODULE_SOURCES_LIST ${MODULE_SOURCES_LIST} ${ARGN} PARENT_SCOPE)
+    set(MODULE_SOURCES_LIST ${MODULE_SOURCES_LIST} "${ARGN}" PARENT_SCOPE)
 endfunction()
 
 function(add_mod_headers)
-    set(MODULE_HEADERS_LIST ${MODULE_HEADERS_LIST} ${ARGN} PARENT_SCOPE)
+    set(MODULE_HEADERS_LIST ${MODULE_HEADERS_LIST} "${ARGN}" PARENT_SCOPE)
 endfunction()
 
 function(add_mod_definitions)
@@ -31,11 +32,11 @@ function(add_mod_definitions)
 endfunction()
 
 function(add_mod_dependencies)
-    set(MODULE_DEPENDENCIES ${MODULE_DEPENDENCIES} ${ARGN} PARENT_SCOPE)
+    set(MODULE_DEPENDENCIES ${MODULE_DEPENDENCIES} "${ARGN}" PARENT_SCOPE)
 endfunction()
 
 function(add_mod_include_dirs)
-    set(all_args ${ARGV})
+    set(all_args "${ARGV}")
     set(MODULE_INCLUDE_DIRS ${MODULE_INCLUDE_DIRS} ${all_args} PARENT_SCOPE)
 endfunction()
 
