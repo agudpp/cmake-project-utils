@@ -6,7 +6,7 @@ assert_def_exists(PROJECT_NAME)
 
 set(MODULE_NAME ${PROJECT_NAME})
 set(MODULE_DEFINITIONS "")
-set(MODULE_INCLUDE_DIRS)
+set(MODULE_INCLUDE_DIRS "")
 set(MODULE_DEPENDENCIES "")
 set(MODULE_SOURCES_LIST "")
 set(MODULE_HEADERS_LIST "")
@@ -28,7 +28,7 @@ function(add_mod_headers)
 endfunction()
 
 function(add_mod_definitions)
-    set(MODULE_DEFINITIONS ${MODULE_DEFINITIONS} PARENT_SCOPE)
+    set(MODULE_DEFINITIONS ${MODULE_DEFINITIONS} "${ARGN}" PARENT_SCOPE)
 endfunction()
 
 function(add_mod_dependencies)
@@ -36,15 +36,19 @@ function(add_mod_dependencies)
 endfunction()
 
 function(add_mod_include_dirs)
-    set(all_args "${ARGV}")
+    set(all_args "${ARGN}")
     set(MODULE_INCLUDE_DIRS ${MODULE_INCLUDE_DIRS} ${all_args} PARENT_SCOPE)
 endfunction()
 
-macro(add_dep_module DEP_MOD_NAME)
-    assert_def_exists(${DEP_MOD_NAME}_MODULE_NAME)
-    add_mod_definitions(${${DEP_MOD_NAME}_MODULE_DEFINITIONS})
-    add_mod_dependencies(${${DEP_MOD_NAME}_MODULE_DEPENDENCIES}  ${${DEP_MOD_NAME}_MODULE_NAME})
-    add_mod_include_dirs(${${DEP_MOD_NAME}_MODULE_INCLUDE_DIRS})
+macro(add_dep_module)
+    set(all_modules "${ARGN}")
+    foreach(curr_mod_name IN LISTS all_modules)
+        assert_def_exists(${curr_mod_name}_MODULE_NAME)
+        add_mod_definitions(${${curr_mod_name}_MODULE_DEFINITIONS})
+        add_mod_dependencies(${${curr_mod_name}_MODULE_DEPENDENCIES}  ${${curr_mod_name}_MODULE_NAME})
+        add_mod_include_dirs(${${curr_mod_name}_MODULE_INCLUDE_DIRS})
+    endforeach()
+
 endmacro()
 
 
@@ -81,6 +85,12 @@ function(create_module_executable)
     _common_module_build()
     add_executable(${MODULE_NAME} ${MODULE_SOURCES_LIST} ${MODULE_HEADERS_LIST})
     target_link_libraries(${MODULE_NAME} ${MODULE_DEPENDENCIES})
+endfunction()
+
+function(add_extra_module_executable extra_executable_name)
+    _common_module_build()
+    add_executable(${extra_executable_name} ${ARGN})
+    target_link_libraries(${extra_executable_name} ${MODULE_DEPENDENCIES})
 endfunction()
 
 

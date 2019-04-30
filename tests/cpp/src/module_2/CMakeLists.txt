@@ -26,6 +26,7 @@ add_mod_dependencies(
 
 add_dep_module(
   module_1
+  module_3
 )
 
 # Add the include directories if any

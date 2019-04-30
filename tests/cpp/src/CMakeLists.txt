@@ -13,4 +13,5 @@ enable_global_testing()
 
 # add all modules here
 add_subdirectory(module_1)
+add_subdirectory(module_3)
 add_subdirectory(module_2)

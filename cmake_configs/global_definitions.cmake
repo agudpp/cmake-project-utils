@@ -3,8 +3,8 @@
 set(GLOBAL_CMAKE_CONFIGS_DIR ${CMAKE_CURRENT_LIST_DIR})
 
 # global verbose mode set on / false
-set(GLOBAL_VERBOSE_MODE OFF)
-set(CMAKE_VERBOSE_MAKEFILE ON)
+set(GLOBAL_VERBOSE_MODE ON)
+set(CMAKE_VERBOSE_MAKEFILE $}GLOBAL_VERBOSE_MODE})
 
 # detect if we are in DEBUG mode or not
 set(DEBUG_MODE false)
