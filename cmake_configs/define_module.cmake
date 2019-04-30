@@ -36,16 +36,13 @@ endfunction()
 
 function(add_mod_include_dirs)
     set(all_args ${ARGV})
-    message("BEFORE: ${MODULE_NAME}: MODULE_INCLUDE_DIRS -> ${MODULE_INCLUDE_DIRS}")
     set(MODULE_INCLUDE_DIRS ${MODULE_INCLUDE_DIRS} ${all_args} PARENT_SCOPE)
-    message("AFTER: ${MODULE_NAME}: MODULE_INCLUDE_DIRS -> ${MODULE_INCLUDE_DIRS}")
-    message(" ARGN: ${all_args}")
 endfunction()
 
 macro(add_dep_module DEP_MOD_NAME)
     assert_def_exists(${DEP_MOD_NAME}_MODULE_NAME)
     add_mod_definitions(${${DEP_MOD_NAME}_MODULE_DEFINITIONS})
-    add_mod_dependencies(${${DEP_MOD_NAME}_MODULE_DEPENDENCIES})
+    add_mod_dependencies(${${DEP_MOD_NAME}_MODULE_DEPENDENCIES}  ${${DEP_MOD_NAME}_MODULE_NAME})
     add_mod_include_dirs(${${DEP_MOD_NAME}_MODULE_INCLUDE_DIRS})
 endmacro()
 
@@ -102,7 +99,7 @@ macro(expose_definitions)
     # Expose toolbx public includes to other subprojects through cache variable.
     set(${MODULE_NAME}_MODULE_INCLUDE_DIRS ${MODULE_INCLUDE_DIRS}
         CACHE INTERNAL "${MODULE_NAME}: Include Directories" FORCE)
-    set(${MODULE_NAME}_MODULE_DEPENDENCIES ${MODULE_DEPENDENCIES} ${MODULE_NAME}
+    set(${MODULE_NAME}_MODULE_DEPENDENCIES ${MODULE_DEPENDENCIES}
         CACHE INTERNAL "${MODULE_NAME}: Dependencies" FORCE)
 endmacro()
 

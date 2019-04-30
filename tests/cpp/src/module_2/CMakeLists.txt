@@ -1,5 +1,3 @@
-# run it cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_VERBOSE_MAKEFILE=1
-################################################################################
 cmake_minimum_required(VERSION  3.2.2)
 
 # project name
@@ -15,9 +13,9 @@ add_mod_sources(
 )
 
 # Define the header list
-# add_mod_headers(
+add_mod_headers(
   
-# )
+)
 
 # Define the library dependencies if any
 add_mod_dependencies(
@@ -31,13 +29,13 @@ add_dep_module(
 )
 
 # Add the include directories if any
-# add_mod_include_dirs(
-#   include_dir_1
-# )
+add_mod_include_dirs(
+  # include_dir_1
+)
 
 
 # build the module
 create_module_executable()
 
 # expose definitions
-#expose_definitions()
+# expose_definitions()
