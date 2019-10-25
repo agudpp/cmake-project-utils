@@ -1,24 +1,17 @@
 ################################################################################
-# we will define the service interface here and the helper functions
-# A service will be based on gRPC library and protobuf
-# The service should be with the following folder structure on the module folder
-#  module_folder
-#  |-- include
-#  |-- src
-#  |-- srv
-#       |-- *.protos files
-
-# This file will define the methods:
-# define_mod_as_service -> that will create the current module service
-#                          setting the 3 following variables:
-#                           - SERVICE_GRPC_LIBRARIES
-#                           - SERVICE_GRPC_SRCS
-#                           - SERVICE_GRPC_HDRS
-#                           - SERVICE_GRPC_INCLUDE_DIRS
-# This values should be added to the corresponding part of the module
-# It will expose also {MODULE_NAME}_SERVICE_HDRS / SRCS / ...
 #
-# use_service(service_name) -> will include the dependencies to use the service
+# This file defines the interface to add services in and include them on the modules
+# We expect to have a structure like this
+# root_project_dir
+#  |- src
+#  |   |- module_1
+#  |   |- module_2
+#  |- services
+#  |   |- module_1
+#  |       |- auto_gen (where the auto generated files will be created)
+#  |...
+#
+# We will generate a lib per service called libservice_<module_name>
 #
 
 include (${GLOBAL_CMAKE_CONFIGS_DIR}/general_utils.cmake)
