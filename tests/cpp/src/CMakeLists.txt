@@ -5,8 +5,9 @@
 project(main_project)
 cmake_minimum_required(VERSION 3.2.2)
 
-include(../../../cmake_configs/global_definitions.cmake)
-include(${GLOBAL_CMAKE_CONFIGS_DIR}/testing.cmake)
+include($ENV{GLOBAL_CMAKE_CONFIGS_DIR}/global_definitions.cmake)
+include($ENV{GLOBAL_CMAKE_CONFIGS_DIR}/testing.cmake)
+
 
 # enable testing
 enable_global_testing()

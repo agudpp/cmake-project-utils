@@ -48,7 +48,6 @@ macro(add_dep_module)
         add_mod_dependencies(${${curr_mod_name}_MODULE_DEPENDENCIES}  ${${curr_mod_name}_MODULE_NAME})
         add_mod_include_dirs(${${curr_mod_name}_MODULE_INCLUDE_DIRS})
     endforeach()
-
 endmacro()
 
 

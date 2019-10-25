@@ -7,6 +7,7 @@ project(module_1 C CXX)
 # define the module here, we expect to be called from the main cmake
 # which include and define the main variables
 include(${GLOBAL_CMAKE_CONFIGS_DIR}/define_module.cmake)
+include(${GLOBAL_CMAKE_CONFIGS_DIR}/define_service.cmake)
 
 # Define the source list
 add_mod_sources(
