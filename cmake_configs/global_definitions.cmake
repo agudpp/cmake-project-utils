@@ -14,7 +14,7 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
 endif ()
 
 # CXX general flags and definitions
-set(GLOBAL_CXX_FLAGS "-std=c++11 -Wall ")
+set(GLOBAL_CXX_FLAGS "-std=c++11 -Wall -fPIC")
 set(COMMON_DEFINITIONS "-DRAPIDJSON_HAS_STDSTRING=1")
 if (DEBUG_MODE)
     set(GLOBAL_CXX_FLAGS "${GLOBAL_CXX_FLAGS} -ggdb3")

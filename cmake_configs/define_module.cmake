@@ -116,3 +116,11 @@ endmacro()
 
 # Add the default values here
 add_mod_include_dirs(${INCLUDE_ROOT_DIR})
+
+
+get_property(test_LINK_DIRECTORIES DIRECTORY PROPERTY LINK_DIRECTORIES)
+get_property(test_INCLUDE_DIRECTORIES DIRECTORY PROPERTY INCLUDE_DIRECTORIES)
+message("[${PROJECT_NAME}]   --> LINK_DIRECTORIES: ${test_LINK_DIRECTORIES}")
+message("[${PROJECT_NAME}]   --> INCLUDE_DIRECTORIES: ${test_INCLUDE_DIRECTORIES}")
+
+

@@ -17,7 +17,7 @@
 include (${GLOBAL_CMAKE_CONFIGS_DIR}/general_utils.cmake)
 
 # Ensure we have the required libraries
-set(SERVICE_GRPC_LIBRARIES protobuf grpc++ grpc grpc++_reflection)
+set(SERVICE_GRPC_LIBRARIES protobuf-lite grpc++_unsecure)
 assert_libs_exists(${SERVICE_GRPC_LIBRARIES})
 
 # ensure we have the required variables set
