@@ -26,7 +26,7 @@ endfunction()
 
 function(assert_lib_exists lib_name)
   unset(_THE_LIB_TO_FIND CACHE)
-  find_library(_THE_LIB_TO_FIND ${lib_name})
+  find_library(_THE_LIB_TO_FIND NAMES ${lib_name})
   if(NOT _THE_LIB_TO_FIND)
     message(FATAL_ERROR "the library ${lib_name} is required and was not found")
   else()

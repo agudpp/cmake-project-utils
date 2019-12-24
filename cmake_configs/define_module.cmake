@@ -81,6 +81,10 @@ function(create_module_lib)
     target_link_libraries(${MODULE_NAME} ${MODULE_DEPENDENCIES})
 endfunction()
 
+function(configure_mod_install destination_dir)
+    install(TARGETS ${MODULE_NAME} DESTINATION ${destination_dir})
+endfunction()
+
 function(create_module_executable)
     _common_module_build()
     add_executable(${MODULE_NAME} ${MODULE_SOURCES_LIST} ${MODULE_HEADERS_LIST})
