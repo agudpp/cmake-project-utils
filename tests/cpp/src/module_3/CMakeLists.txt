@@ -35,6 +35,7 @@ add_dep_module(
 
 # module definitions
 add_mod_definitions(
+    -DD2
 )
 
 # build the module

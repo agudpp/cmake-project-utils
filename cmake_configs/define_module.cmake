@@ -20,24 +20,33 @@ set(TEST_ROOT_DIR ${PRJ_ROOT_DIR}/test)
 
 
 function(add_mod_sources)
-    set(MODULE_SOURCES_LIST ${MODULE_SOURCES_LIST} "${ARGN}" PARENT_SCOPE)
+    set(temp_list ${MODULE_SOURCES_LIST} "${ARGN}")
+    remove_dup_entries(temp_list temp_list_simplified)
+    set(MODULE_SOURCES_LIST ${temp_list_simplified} PARENT_SCOPE)
 endfunction()
 
 function(add_mod_headers)
-    set(MODULE_HEADERS_LIST ${MODULE_HEADERS_LIST} "${ARGN}" PARENT_SCOPE)
+    set(temp_list ${MODULE_HEADERS_LIST} "${ARGN}")
+    remove_dup_entries(temp_list temp_list_simplified)
+    set(MODULE_HEADERS_LIST ${temp_list_simplified} PARENT_SCOPE)
 endfunction()
 
 function(add_mod_definitions)
-    set(MODULE_DEFINITIONS ${MODULE_DEFINITIONS} "${ARGN}" PARENT_SCOPE)
+    set(temp_list ${MODULE_DEFINITIONS} "${ARGN}")
+    remove_dup_entries(temp_list temp_list_simplified)
+    set(MODULE_DEFINITIONS ${temp_list_simplified} PARENT_SCOPE)
 endfunction()
 
 function(add_mod_dependencies)
-    set(MODULE_DEPENDENCIES ${MODULE_DEPENDENCIES} "${ARGN}" PARENT_SCOPE)
+    set(temp_list ${MODULE_DEPENDENCIES} "${ARGN}")
+    remove_dup_entries(temp_list temp_list_simplified)
+    set(MODULE_DEPENDENCIES ${temp_list_simplified} PARENT_SCOPE)
 endfunction()
 
 function(add_mod_include_dirs)
-    set(all_args "${ARGN}")
-    set(MODULE_INCLUDE_DIRS ${MODULE_INCLUDE_DIRS} ${all_args} PARENT_SCOPE)
+    set(temp_list ${MODULE_INCLUDE_DIRS} "${ARGN}")
+    remove_dup_entries(temp_list temp_list_simplified)
+    set(MODULE_INCLUDE_DIRS ${temp_list_simplified} PARENT_SCOPE)
 endfunction()
 
 macro(add_dep_module)
@@ -52,10 +61,17 @@ endmacro()
 
 
 macro(_print_module_info)
+    message("\n\n*****************************************************")
     message("Module ${MODULE_NAME} information: ")
+    message("*****************************************************")
     print_var(MODULE_DEFINITIONS)
-    print_var(MODULE_INCLUDE_DIRS)
+    print_var(MODULE_INCLUDE_DIRS)    
     print_var(MODULE_DEPENDENCIES)
+    # get_property(test_LINK_DIRECTORIES DIRECTORY PROPERTY LINK_DIRECTORIES)
+    # get_property(test_INCLUDE_DIRECTORIES DIRECTORY PROPERTY INCLUDE_DIRECTORIES)
+    # message("LINK_DIRECTORIES: ${test_LINK_DIRECTORIES}")
+    # message("INCLUDE_DIRECTORIES: ${test_INCLUDE_DIRECTORIES}")
+    message("-----------------------------------------------------")
 endmacro()
 
 function(_common_module_build)
@@ -63,7 +79,7 @@ function(_common_module_build)
     include_directories(${MODULE_INCLUDE_DIRS})
 
     # verbose mode
-    if (${GLOBAL_VERBOSE_MODE})
+    if (${OPT_GLOBAL_VERBOSE_MODE})
         _print_module_info()
     endif()
 endfunction()
@@ -122,10 +138,5 @@ endmacro()
 # Add the default values here
 add_mod_include_dirs(${INCLUDE_ROOT_DIR})
 
-
-get_property(test_LINK_DIRECTORIES DIRECTORY PROPERTY LINK_DIRECTORIES)
-get_property(test_INCLUDE_DIRECTORIES DIRECTORY PROPERTY INCLUDE_DIRECTORIES)
-message("[${PROJECT_NAME}]   --> LINK_DIRECTORIES: ${test_LINK_DIRECTORIES}")
-message("[${PROJECT_NAME}]   --> INCLUDE_DIRECTORIES: ${test_INCLUDE_DIRECTORIES}")
 
 
